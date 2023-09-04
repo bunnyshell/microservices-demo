@@ -169,3 +169,42 @@ spec:
         - "8080"
 {{- end }}
 {{- end }}
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ .Values.recommendationService.name }}-hpa
+  namespace: default
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ .Values.recommendationService.name }}
+  minReplicas: {{ .Values.recommendationService.minReplicas }}
+  maxReplicas: 30
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 1
+      policies:
+        - type: Pods
+          value: 100
+          periodSeconds: 1
+    scaleDown:
+      stabilizationWindowSeconds: 1
+      policies:
+        - type: Pods
+          value: 100
+          periodSeconds: 1
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 50
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 70

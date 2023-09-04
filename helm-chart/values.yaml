@@ -45,57 +45,62 @@ seccompProfile:
 adService:
   create: true
   name: adservice
+  minReplicas: 4
   resources:
     requests:
       cpu: 200m
-      memory: 180Mi
+      memory: 128Mi
     limits:
       cpu: 300m
-      memory: 300Mi
+      memory: 128Mi
 
 cartService:
   create: true
   name: cartservice
+  minReplicas: 18
   resources:
     requests:
-      cpu: 200m
-      memory: 64Mi
-    limits:
-      cpu: 300m
+      cpu: 100m
       memory: 128Mi
+    limits:
+      cpu: 200m
+      memory: 256Mi
 
 checkoutService:
   create: true
   name: checkoutservice
+  minReplicas: 8
   resources:
     requests:
       cpu: 100m
-      memory: 64Mi
+      memory: 128Mi
     limits:
       cpu: 200m
-      memory: 128Mi
+      memory: 256Mi
 
 currencyService:
   create: true
   name: currencyservice
+  minReplicas: 24
   resources:
     requests:
-      cpu: 100m
-      memory: 64Mi
-    limits:
-      cpu: 200m
+      cpu: 250m
       memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
 
 emailService:
   create: true
   name: emailservice
+  minReplicas: 4
   resources:
     requests:
-      cpu: 100m
+      cpu: 50m
       memory: 64Mi
     limits:
       cpu: 200m
-      memory: 128Mi
+      memory: 64Mi
 
 frontend:
   create: true
@@ -114,13 +119,14 @@ frontend:
       namespace: asm-ingress
       labelKey: asm
       labelValue: ingressgateway
+  minReplicas: 30
   resources:
     requests:
-      cpu: 100m
+      cpu: 300m
       memory: 64Mi
     limits:
-      cpu: 200m
-      memory: 128Mi
+      cpu: 600m
+      memory: 64Mi
 
 loadGenerator:
   create: true
@@ -128,15 +134,16 @@ loadGenerator:
   checkFrontendInitContainer: true
   resources:
     requests:
-      cpu: 300m
-      memory: 256Mi
+      cpu: 50m
+      memory: 64Mi
     limits:
-      cpu: 500m
-      memory: 512Mi
+      cpu: 100m
+      memory: 64Mi
 
 paymentService:
   create: true
   name: paymentservice
+  minReplicas: 4
   resources:
     requests:
       cpu: 100m
@@ -150,35 +157,38 @@ productCatalogService:
   name: productcatalogservice
   # Specifies an extra latency to any request on productcatalogservice, by default no extra latency.
   extraLatency: ""
+  minReplicas: 16
   resources:
     requests:
-      cpu: 100m
+      cpu: 250m
       memory: 64Mi
     limits:
-      cpu: 200m
-      memory: 128Mi
+      cpu: 500m
+      memory: 64Mirm -rf
 
 recommendationService:
   create: true
   name: recommendationservice
+  minReplicas: 20
   resources:
     requests:
-      cpu: 100m
-      memory: 220Mi
-    limits:
       cpu: 200m
-      memory: 450Mi
+      memory: 96Mi
+    limits:
+      cpu: 400m
+      memory: 96Mi
 
 shippingService:
   create: true
   name: shippingservice
+  minReplicas: 4
   resources:
     requests:
       cpu: 100m
-      memory: 64Mi
+      memory: 32Mi
     limits:
       cpu: 200m
-      memory: 128Mi
+      memory: 32Mi
 
 cartDatabase:
   # Specifies the type of the cartservice's database, could be either redis or spanner.
